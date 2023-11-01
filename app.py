@@ -24,8 +24,8 @@ industries = [
     "Logistics and Supply Chain Management",
 ]
 cases = [
-    "Market Entry Strategy",
-    "Product Launch Strategy",
+    "Critiquing Design",
+    "Designing a Mobile App",
     "Pricing Strategy",
     "User Acquisition and Growth",
     "Product Optimization and A/B Testing",
@@ -36,6 +36,11 @@ cases = [
     "International Expansion and Localization",
 ]
 
+pricing_strategy_few_shot_examples = (
+    'Q1: How would you price the Kindle Fire HD?\n'
+    'Q2: Assume you are the new product manager in our Amazon Prime business and are deciding pricing. The vice president would like to lower the price from $79.99 per year to $69.99 per year. Making your own assumptions, develop the financial projections for this decision.\n\n'
+)
+
 selected_industry = st.selectbox("Choose an Industry", industries)
 selected_case = st.selectbox("Choose a Business Case", cases)
 
@@ -44,8 +49,12 @@ selected_case = st.selectbox("Choose a Business Case", cases)
 
 def generate_business_case(industry, case_type):
     # set up variables for system and user
-    system_message = 'You are an expert Product Leader in '+industry+' industry and you are interviewing a candidate for the role of Product Manager in your company. You have decided to give him a business case related to ' + case_type
-    user_message = 'Please generate business case for the candidate.'
+    system_message = (
+        'You are an expert Product Leader in '+industry+' industry and you are interviewing a candidate for the role of Product Manager in your company.' + case_type + '. Here are some of the earlier business problems that you have asked in previous interviews:\n\n'
+        +pricing_strategy_few_shot_examples+
+        'Your response always contain only questions (as shown in examples above) and do not contain anything else.'
+        )
+    user_message = 'Please generate a simulated business problem for the candidate that is related to the industry '+ industry + ' and pertaining to this topic '+ case_type
     # Set up OpenAI API authentication and call the API to generate the business case
     # Return the generated business case text
     openai.api_key = st.secrets["openai_api_key"]
