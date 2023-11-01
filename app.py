@@ -39,15 +39,47 @@ cases = [
 selected_industry = st.selectbox("Choose an Industry", industries)
 selected_case = st.selectbox("Choose a Business Case", cases)
 
+
+
+
 def generate_business_case(industry, case_type):
+    # set up variables for system and user
+    system_message = 'You are an expert Product Leader in '+industry+' industry and you are interviewing a candidate for the role of Product Manager in your company. You have decided to give him a business case related to ' + case_type
+    user_message = 'Please generate business case for the candidate.'
     # Set up OpenAI API authentication and call the API to generate the business case
     # Return the generated business case text
+    openai.api_key = st.secrets["openai_api_key"]
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+            "role": "system",
+            "content": system_message
+            },            
+            {
+            "role": "user",
+            "content": user_message
+            }
+        ],
+        temperature=1,
+        max_tokens=600,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
 
-    return "Generated business case text"
+    return response['choices'][0]['message']['content']
 
-business_case = generate_business_case(selected_industry, selected_case)
-st.subheader("Generated Business Case")
-st.write(business_case)
+
+if st.button("Generate Business Case"):
+    business_case = generate_business_case(selected_industry, selected_case)
+    st.subheader("Generated Business Case")
+    st.write(business_case)
+else:
+    st.subheader("Generated Business Case")
+    st.write("Click the button to generate a business case.")
+
+
 
 st.subheader("Evaluation Parameters")
 st.write("1. Parameter 1")
