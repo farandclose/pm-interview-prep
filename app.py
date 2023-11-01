@@ -6,8 +6,35 @@ st.set_page_config(page_title="PM Interview Practice",layout="wide")
 st.title("Product Manager Interview Practice")
 st.write("Select the industry and type of business case to practice.")
 
-industries = ["Industry 1", "Industry 2", "Industry 3"]
-cases = ["Case 1", "Case 2", "Case 3"]
+industries = [
+    "E-commerce and Retail",
+    "Financial Services and Fintech",
+    "Healthtech and Digital Health",
+    "Edtech and Online Learning",
+    "Social Media and Networking",
+    "Software as a Service (SaaS)",
+    "Gaming and Entertainment",
+    "Travel and Hospitality",
+    "Marketing and Advertising Technology",
+    "Telecommunications and Networking",
+    "Cybersecurity and Data Privacy",
+    "Artificial Intelligence and Machine Learning",
+    "Internet of Things (IoT) and Smart Devices",
+    "Blockchain and Cryptocurrency",
+    "Logistics and Supply Chain Management",
+]
+cases = [
+    "Market Entry Strategy",
+    "Product Launch Strategy",
+    "Pricing Strategy",
+    "User Acquisition and Growth",
+    "Product Optimization and A/B Testing",
+    "Monetization and Revenue Models",
+    "Competitive Analysis and Differentiation",
+    "Customer Segmentation and Targeting",
+    "Product Roadmap and Prioritization",
+    "International Expansion and Localization",
+]
 
 selected_industry = st.selectbox("Choose an Industry", industries)
 selected_case = st.selectbox("Choose a Business Case", cases)
